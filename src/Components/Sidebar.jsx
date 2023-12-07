@@ -5,12 +5,26 @@ import { BsFillQuestionSquareFill, BsFillBookmarksFill, BsBagCheck, BsFillChatFi
 import { SlCalender } from "react-icons/sl"
 import { GiGraduateCap } from "react-icons/gi"
 import CloseFreind from "./CloseFreind"
+import { useContext } from "react"
+import { AuthContext } from "../context/AuthContext"
 
 export default function Sidebar() {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER
+    const { user } = useContext(AuthContext)
     return (
         <div className="flex-[3] h-[calc(100vh-48px)]  overflow-y-scroll sticky top-12">
             <div className="p-8">
                 <ul>
+
+                    <li className="flex cursor-pointer items-center mb-5 gap-4 ">
+                        <img className="h-8 w-8 rounded-full object-cover"
+                            src={
+                                user.profilePicture ?
+                                    PF + user.profilePicture
+                                    : PF + "noProfile.webp"}
+                            alt="" />
+                        <span className="font-extrabold capitalize text-lg">{user.username}</span>
+                    </li>
                     <li className="flex cursor-pointer items-center mb-5 gap-4 ">
                         <MdOutlineRssFeed className="text-2xl" />
                         <span>Feed</span>

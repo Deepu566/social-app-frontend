@@ -1,16 +1,24 @@
 import { AiOutlineSearch } from "react-icons/ai"
 import { BsFillPersonFill, BsFillChatLeftTextFill } from "react-icons/bs"
 import { IoIosNotifications } from "react-icons/io"
-import profilePic from "../Assets/img1.jpg";
+// import profilePic from "../Assets/img1.jpg";
+import { Link } from "react-router-dom"
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
 
 
 export default function Topbar() {
+    const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
+    const { user } = useContext(AuthContext)
     return (
         <div className="bg-blue-500 h-12 flex sticky top-0 z-50">
             <div className="left flex-1 flex  pl-12 font-bold text-2xl text-white items-center">
-                <div className="cursor-pointer">
-                    Social App
-                </div>
+                <Link to="/">
+                    <div className="cursor-pointer">
+                        Social App
+                    </div>
+                </Link>
             </div>
             <div className="flex-[2] flex justify-center items-center ">
                 <div className="w-full py-1 gap-3  rounded-2xl overflow-hidden pl-2  bg-white flex items-center">
@@ -42,7 +50,13 @@ export default function Topbar() {
                     </div>
                 </div>
                 <div className="right flex items-center pl-16 cursor-pointer">
-                    <img className="h-11 w-11 rounded-full object-cover" src={profilePic} alt="" />
+                    <Link to={`/profile/${user.username}`}>
+                        <img className="h-10 w-10 rounded-full object-cover"
+                            src={
+                                user.profilePicture ?
+                                    PF + user.profilePicture
+                                    : PF + "noProfile.webp"} alt="" />
+                    </Link>
                 </div>
             </div>
         </div>
